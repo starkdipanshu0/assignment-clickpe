@@ -33,7 +33,7 @@ def login():
             session['email'] = email
             return redirect(url_for('dashboard'))
         else:
-            return redirect(url_for(home , error = "failed to login"))
+            return redirect(url_for(home))
     return render_template('index.html')
 
 # Register
