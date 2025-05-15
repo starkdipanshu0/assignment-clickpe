@@ -1,112 +1,99 @@
-<!--
-title: 'Serverless Framework Python Flask API on AWS'
-description: 'This template demonstrates how to develop and deploy a simple Python Flask API running on AWS Lambda using the Serverless Framework.'
-layout: Doc
-framework: v4
-platform: AWS
-language: Python
-priority: 2
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, Inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
--->
+![Screenshot (1)](https://github.com/user-attachments/assets/50b8638d-68e5-48ce-83c1-2dc6434a0c46)User-Profile App with Google & GitHub OAuth
+This is a minimal full-stack User Profile application built using Flask, deployed to AWS Lambda using the Serverless Framework. It supports OAuth login via Google and GitHub, stores user information in PostgreSQL, and displays a basic dashboard listing all registered users.
 
-# Serverless Framework Python Flask API on AWS
+🔧 Tech Stack
+Backend: Flask (Python) on AWS Lambda via Serverless Framework
+Frontend: Server-rendered HTML (Jinja templates)
+OAuth Providers: Google, GitHub
+Database: PostgreSQL
+Auth: JWT tokens for session management
+Secrets Management: AWS Secrets Manager
+Deployment: Serverless Framework + API Gateway + Lambda
 
-This template demonstrates how to develop and deploy a simple Python Flask API service running on AWS Lambda using the Serverless Framework.
+Features
+OAuth 2.0 Authorization Code Grant flow for Google and GitHub
+Secure storage of user data in PostgreSQL
+JWT-based session management
+Server-rendered HTML pages
+Hosted on AWS Lambda via Serverless Framework
 
-This template configures a single function, `api`, which is responsible for handling all incoming requests thanks to configured `http` events. To learn more about `http` event configuration options, please refer to [http event docs](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/). As the events are configured in a way to accept all incoming requests, `Flask` framework is responsible for routing and handling requests internall y. The implementation takes advantage of `serverless-wsgi`, which allows you to wrap WSGI applications such as Flask apps. To learn more about `serverless-wsgi`, please refer to corresponding [GitHub repository](https://github.com/logandk/serverless-wsgi). Additionally, the template relies on `serverless-python-requirements` plugin for packaging dependencies from `requirements.txt` file. For more details about `serverless-python-requirements` configuration, please refer to corresponding [GitHub repository](https://github.com/UnitedIncome/serverless-python-requirements).
+Environment Variables
+Use a .env file for local development or AWS Secrets Manager for production. Example .env:
+POSTGRES_USER = ""
+POSTGRES_PASSWORD = ""
+POSTGRES_DB = ""
+POSTGRES_HOST = ""
+POSTGRES_PORT = ""
+SECRET_KEY = ""
+GOOGLE_CLIENT_ID = ""
+GOOGLE_CLIENT_SECRET = ""
+GITHUB_CLIENT_ID = ""
+GITHUB_CLIENT_SECRET = ""
 
-## Usage
+Setup Instructions
+1. 🧬 Clone and Install
+   git clone https://github.com/your-username/user-profile-app.git
+   cd user-profile-app
+   pip install -r requirements.txt
 
-### Deployment
+2. to run the application locally
+  flask run
 
-This example is made to work with the Serverless Framework dashboard, which includes advanced features such as CI/CD, monitoring, metrics, etc.
 
-In order to deploy with dashboard, you need to first login with:
 
-```
-serverless login
-```
+🌐 API Endpoints
+Method	Endpoint	Description
+GET	/auth/google/start	Redirects to Google OAuth consent screen
+GET	/auth/google/callback	Handles Google OAuth callback
+GET	/auth/github/start	Redirects to GitHub OAuth consent screen
+GET	/auth/github/callback	Handles GitHub OAuth callback
 
-install dependencies with:
 
-```
-npm install
-```
+ Frontend Pages
+/ – Login Page (Google & GitHub buttons)
+![Screenshot (1)](https://github.com/user-attachments/assets/2b7ca8a2-4622-4274-9e76-e624782e7599)
 
-and
+on google login
+![Screenshot 2025-05-16 020306](https://github.com/user-attachments/assets/7c27658a-504a-4266-a32e-0778ef18aa91)
+![Screenshot 2025-05-16 020320](https://github.com/user-attachments/assets/029a27d9-ad16-43a4-b3b6-093c1f08db5a)
 
-```
-pip install -r requirements.txt
-```
+/dashboard – Dashboard showing all users (protected)
+![Screenshot 2025-05-16 020350](https://github.com/user-attachments/assets/a67cfbb9-074f-44d4-a6be-32eb10b19ea9)
 
-and then perform deployment with:
 
-```
-serverless deploy
-```
+Project Structure
+clickpe-assignment/
+│
+├── app.py                 # Main Flask application file
+├── models.py              # Database models/schemas
+├── wsgi_handler.py        # WSGI handler for serverless deployment
+├── serverless_wsgi.py     # Serverless WSGI integration
+│
+├── config/               # Configuration directory
+│
+├── static/              # Static files (CSS, JS, images)
+│
+├── templates/           # HTML templates
+│
+├── Configuration Files
+│   ├── serverless.yml      # Serverless Framework configuration
+│   ├── .serverless-wsgi    # Serverless WSGI config
+│   ├── requirements.txt    # Python dependencies (main)
+│   ├── requirements_new.txt # Additional Python dependencies
+│   ├── package.json        # Node.js dependencies
+│   └── package-lock.json   # Node.js dependencies lock file
+│
+├── Virtual Environment
+│   └── venv/              # Python virtual environment
+│
+├── Generated Directories
+│   ├── .serverless/       # Serverless deployment artifacts
+│   ├── __pycache__/       # Python bytecode cache
+│   └── node_modules/      # Node.js modules
+│
+└── Documentation
+    └── README.md          # Project documentation
 
-After running deploy, you should see output similar to:
 
-```
-Deploying "aws-python-flask-api" to stage "dev" (us-east-1)
+Dipanshu Vishwakarma
 
-Using Python specified in "runtime": python3.12
-
-Packaging Python WSGI handler...
-
-✔ Service deployed to stack aws-python-flask-api-dev (104s)
-
-endpoints:
-  ANY - https://xxxxxxxxxe.execute-api.us-east-1.amazonaws.com/dev/
-  ANY - https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/{proxy+}
-functions:
-  api: aws-python-flask-api-dev-api (41 MB)
-
-```
-
-_Note_: In current form, after deployment, your API is public and can be invoked by anyone. For production deployments, you might want to configure an authorizer. For details on how to do that, refer to [http event docs](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/).
-
-### Invocation
-
-After successful deployment, you can call the created application via HTTP:
-
-```
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/
-```
-
-Which should result in the following response:
-
-```json
-{ "message": "Hello from root!" }
-```
-
-Calling the `/hello` path with:
-
-```
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/hello
-```
-
-Should result in the following response:
-
-```json
-{ "message": "Hello from path!" }
-```
-
-### Local development
-
-Thanks to capabilities of `serverless-wsgi`, it is also possible to run your application locally, however, in order to do that, you will need to first install `werkzeug` dependency, as well as all other dependencies listed in `requirements.txt`. It is recommended to use a dedicated virtual environment for that purpose. You can install all needed dependencies with the following commands:
-
-```
-pip install werkzeug
-pip install -r requirements.txt
-```
-
-At this point, you can run your application locally with the following command:
-
-```
-serverless wsgi serve
-```
-
-For additional local development capabilities of `serverless-wsgi` plugin, please refer to corresponding [GitHub repository](https://github.com/logandk/serverless-wsgi).
