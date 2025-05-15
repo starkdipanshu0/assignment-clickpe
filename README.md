@@ -32,7 +32,7 @@ GITHUB_CLIENT_SECRET = ""
 
 Setup Instructions
 1. 🧬 Clone and Install
-   git clone https://github.com/your-username/user-profile-app.git
+   [git clone https://github.com/your-username/user-profile-app.git](https://github.com/starkdipanshu0/assignment-clickpe.git)
    cd user-profile-app
    pip install -r requirements.txt
 
