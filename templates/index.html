@@ -8,6 +8,9 @@
 
     <input type="button" value="Login" class="btn btn-login" onclick="setActionForm('login')">
     <input type="button" value="Register" class="btn btn-login" onclick="setActionForm('register')">
+    <input type="button" value="Login with Google" class="btn btn-google" onclick="window.location.href='{{ url_for('login_google') }}'">
+    <input type="button" value="Login with GitHub" class="btn btn-github"
+       onclick="window.location.href='{{ url_for('login_github') }}'">
 </form>
 
 <script>
