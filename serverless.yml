@@ -5,14 +5,24 @@ app: clickpe
 # "service" is the name of this project. This will also be added to your AWS resource names.
 service: clickpe-assignment
 
+provider:
+  name: aws
+  runtime: python3.9
+  region: us-east-1
+  memorySize: 256
+  timeout: 30
+
 custom:
   wsgi:
     app: app.app
-
-provider:
-  name: aws
-  runtime: python3.12
-
+  pythonRequirements:
+    layer: true
+    noDeploy:
+      - coverage
+      - pytest
+    useStaticCache: false
+    useDownloadCache: false
+    requirementsPath: requirements.txt
 functions:
   api:
     handler: wsgi_handler.handler

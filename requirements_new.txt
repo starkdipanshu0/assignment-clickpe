@@ -1,0 +1,10 @@
+Flask==3.1.1
+Werkzeug==3.1.9
+serverless-wsgi==3.0.5
+python-dotenv==1.1.0
+Flask-SQLAlchemy==3.1.1
+psycopg2-binary==2.9.10
+Authlib==1.5.2
+Flask-OAuthlib==0.9.6
+requests==2.32.3
+SQLAlchemy==2.0.41 
