@@ -1,4 +1,4 @@
-![Screenshot (1)](https://github.com/user-attachments/assets/50b8638d-68e5-48ce-83c1-2dc6434a0c46)User-Profile App with Google & GitHub OAuth
+User-Profile App with Google & GitHub OAuth
 This is a minimal full-stack User Profile application built using Flask, deployed to AWS Lambda using the Serverless Framework. It supports OAuth login via Google and GitHub, stores user information in PostgreSQL, and displays a basic dashboard listing all registered users.
 
 🔧 Tech Stack
