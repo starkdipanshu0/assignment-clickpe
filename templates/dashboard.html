@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | ClickPe{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="sidebar">
+        <h2>Dashboard</h2>
+        <ul>
+            <li><a href="#">Overview</a></li>
+            <li><a href="#">Users</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <h1>Welcome, User!</h1>
+
+        <div class="stats">
+            <div class="card">
+                <h3>Total Users</h3>
+                <p>128</p>
+            </div>
+            <div class="card">
+                <h3>Active Sessions</h3>
+                <p>24</p>
+            </div>
+            <div class="card">
+                <h3>New Signups</h3>
+                <p>12</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
